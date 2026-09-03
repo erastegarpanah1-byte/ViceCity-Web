@@ -1,0 +1,2 @@
+export type GameEvent={type:string;payload?:unknown};
+export class EventBus{private listeners=new Map<string,Set<(event:GameEvent)=>void>>();on(type:string,fn:(e:GameEvent)=>void){if(!this.listeners.has(type))this.listeners.set(type,new Set());this.listeners.get(type)!.add(fn);return()=>this.listeners.get(type)?.delete(fn)}emit(event:GameEvent){this.listeners.get(event.type)?.forEach(fn=>fn(event))}}
