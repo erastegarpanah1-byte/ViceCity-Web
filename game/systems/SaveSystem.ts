@@ -1,0 +1,4 @@
+import type {PlayerState} from '../types';
+import {useGameStore} from '../state';
+const KEY='vicecity-web-save-v1';
+export class SaveSystem{save(){const s=useGameStore.getState();localStorage.setItem(KEY,JSON.stringify({player:s.player,wanted:s.wanted,mission:s.mission,ammo:s.ammo,fuel:s.fuel,time:s.time,weather:s.weather}));s.setMessage('بازی ذخیره شد.')}load(){const raw=localStorage.getItem(KEY);if(!raw){useGameStore.getState().setMessage('ذخیره‌ای پیدا نشد.');return}try{const d=JSON.parse(raw) as Partial<ReturnType<typeof useGameStore.getState>>;useGameStore.setState({player:d.player as PlayerState,wanted:d.wanted as any,mission:d.mission as any,ammo:d.ammo,fuel:d.fuel,time:d.time,weather:d.weather,message:'ذخیره بارگذاری شد.'})}catch{useGameStore.getState().setMessage('ذخیره خراب است.')}}}
