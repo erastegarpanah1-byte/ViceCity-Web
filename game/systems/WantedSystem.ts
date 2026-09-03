@@ -1,0 +1,2 @@
+import { useGameStore } from '../state';
+export class WantedSystem{crime(kind:'theft'|'fight'|'alarm'|'camera'){const gain={theft:2,fight:1,alarm:2,camera:1}[kind];const s=useGameStore.getState();s.setWanted(Math.min(6,s.wanted.level+gain));s.addHeat(18);s.setMessage(`گزارش جرم: ${kind}`)}update(dt:number){const s=useGameStore.getState();if(s.wanted.level>0&&s.wanted.heat<=0)s.setWanted(s.wanted.level-1);s.addHeat(-dt*2)}}
