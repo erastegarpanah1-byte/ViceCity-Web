@@ -1,0 +1,2 @@
+import {useGameStore} from '../state';
+export class FishingSystem{progress=0;cast(){this.progress=0;useGameStore.getState().setMessage('طعمه را در آب انداختی؛ با E زمان‌بندی کن.')}tick(dt:number){this.progress=Math.min(1,this.progress+dt*.18)}catchFish(timing:number){const good=Math.abs(timing-.72)<.12;if(good){useGameStore.getState().addCash(80);useGameStore.getState().setMessage('ماهی گرفتی! +$80')}else useGameStore.getState().setMessage('این یکی فرار کرد.');this.progress=0}}
