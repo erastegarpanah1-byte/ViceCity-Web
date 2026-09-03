@@ -1,0 +1,2 @@
+import {useGameStore} from '../state';
+export class FlightSystem{altitude=0;vertical=0;update(dt:number,up:boolean,down:boolean){const s=useGameStore.getState();if(s.player.mode!=='air'&&s.player.mode!=='skydive')return;this.vertical+=(up?12:down?-12:0)*dt;this.vertical*=.92;this.altitude=Math.max(0,this.altitude+this.vertical*dt);if(s.player.mode==='skydive')this.altitude=Math.max(0,this.altitude-8*dt);if(this.altitude===0&&s.player.mode==='skydive')s.setMode('onFoot')}}
