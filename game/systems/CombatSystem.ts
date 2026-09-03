@@ -1,0 +1,2 @@
+import { useGameStore } from '../state';
+export class CombatSystem{cooldown=0;attack(){if(this.cooldown>0)return;this.cooldown=.35;const s=useGameStore.getState();s.addHeat(8);s.setMessage('ضربه ثبت شد.')}shoot(){const s=useGameStore.getState();if(s.ammo<=0){s.setMessage('مهمات تمام شده.');return}useGameStore.setState({ammo:s.ammo-1});s.addHeat(14);s.setMessage('شلیک ثبت شد.')}update(dt:number){this.cooldown=Math.max(0,this.cooldown-dt)}}
